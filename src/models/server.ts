@@ -5,8 +5,8 @@ import cors from 'cors';
 class Server {
     private app: Application;
     private port: string;
-    private apiPaths = {
-        usuarios: '/api/usuarios'
+    private apiPaths = { //defnición de las rutas
+        usuarios: '/api/usuarios'  
     };
 
     constructor() {
@@ -18,6 +18,7 @@ class Server {
     };
 
     //TODO: Conectar base de datos
+    
 
     middelwares() {
         //Configuración del CORS

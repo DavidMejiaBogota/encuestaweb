@@ -23,7 +23,8 @@ export const createUsuario = (req: Request, res: Response) => {
 
     res.json({
         msg: 'createUsuario',
-        body
+        body,
+        
     });
 };
 
