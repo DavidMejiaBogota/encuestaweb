@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 
+//Función para obtener todos los usuarios
 export const getUsuarios = (req: Request, res: Response) => {
     res.json({
         msg: 'getUsuarios'
     });
 };
 
+//Función para obtener un usuario
 export const getUsuario = (req: Request, res: Response) => {
     const {id} = req.params;
 
@@ -15,6 +17,7 @@ export const getUsuario = (req: Request, res: Response) => {
     });
 };
 
+//Función para crear un usuario
 export const createUsuario = (req: Request, res: Response) => {
     const {body} = req;
 
@@ -24,6 +27,7 @@ export const createUsuario = (req: Request, res: Response) => {
     });
 };
 
+//Función para actualizar un usuario
 export const updateUsuario = (req: Request, res: Response) => {
     
     const {id } = req.params;
@@ -36,6 +40,7 @@ export const updateUsuario = (req: Request, res: Response) => {
     });
 };
 
+//Función para eleminar un usuario
 export const deleteUsuario = (req: Request, res: Response) => {
     
     const {id } = req.params;
