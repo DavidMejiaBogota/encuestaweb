@@ -1,6 +1,10 @@
+//Importaciones de terceros
 import express, {Application} from 'express';
 import userRoutes from '../routes/usuario';
 import cors from 'cors';
+
+//importanciones propias
+import db from '../db/connetion';
 
 class Server {
     private app: Application;
@@ -13,12 +17,22 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '8000';
         //Métodos iniciales
-        this. middelwares();
-        this.routes();
+        this.dbConnection(); //Llamado al método de conección a la base de datos.
+        this. middelwares(); // Llamado al metodo de middlewares.
+        this.routes(); // Llamado al metodo de rutas.
     };
 
-    //TODO: Conectar base de datos
-    
+    //Conectar base de datos
+
+    async dbConnection() {
+        try {
+        await db.authenticate();
+        console.log('Database Online');
+        } catch (error) {
+            throw new Error('Can not connect to dabase' + error);           
+        }
+    }
+
 
     middelwares() {
         //Configuración del CORS
