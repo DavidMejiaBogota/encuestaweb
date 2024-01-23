@@ -1,6 +1,6 @@
 //Importaciones de terceros
 import express, {Application} from 'express';
-import userRoutes from '../routes/usuario';
+import userRoutes from '../routes/personas';
 import cors from 'cors';
 
 //importanciones propias
@@ -10,7 +10,7 @@ class Server {
     private app: Application;
     private port: string;
     private apiPaths = { //defnición de las rutas
-        usuarios: '/api/usuarios'  
+        usuarios: '/api/personas'  
     };
 
     constructor() {
@@ -29,7 +29,7 @@ class Server {
         await db.authenticate();
         console.log('Database Online');
         } catch (error) {
-            throw new Error('Can not connect to dabase' + error);           
+            throw new Error('Error en la base de datos: ' + error);           
         }
     }
 

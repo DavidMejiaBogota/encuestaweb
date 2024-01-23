@@ -1,9 +1,9 @@
-import { Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 
 const db = new Sequelize('encuestaweb', 'root', 'Popepi2607*', {
     host: 'localhost',
     dialect: 'mysql',
-    logging: false,
+    //logging: false,
 });
 
 export default db;
