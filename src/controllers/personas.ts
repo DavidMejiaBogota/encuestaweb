@@ -39,7 +39,7 @@ export const createPersona = async(req: Request, res: Response) => {
 
     if (existEmail) {
        return res.status(400).json({
-        msg: `Ya existe un usuario: ${body.email}`,
+        msg: `Ya existe un usuario con el email: ${body.email}`,
        });
     }
 
@@ -50,22 +50,35 @@ export const createPersona = async(req: Request, res: Response) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: 'Hable con el administrador'
+            msg: 'El campo email es necesario'
         });    
     }
 };
 
 //Función para actualizar un usuario
-export const updatePersona = (req: Request, res: Response) => {
+export const updatePersona = async (req: Request, res: Response) => {
     
-    const {id_persona} = req.params;
+    const {id} = req.params;
     const {body} = req;
 
-    res.json({
-        msg: 'updateUsuario',
-        body,
-        id_persona
-    });
+    try {
+
+        const persona = await Persona.findByPk(id);
+        if (!persona){
+            return res.status(404).json({
+                msg:`No existe un usuario con el id ${id}`
+            });
+        }
+        
+        await persona.update(body);
+        res.json({persona});
+
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                msg: 'El campo email es necesario'
+            });    
+        }
 };
 
 //Función para eleminar un usuario

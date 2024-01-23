@@ -5,23 +5,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connetion_1 = __importDefault(require("../db/connetion"));
-const Persona = connetion_1.default.define('Persona', {
+class Persona extends sequelize_1.Model {
+}
+Persona.init({
     id_persona: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
     },
     nombre: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     apellido: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     fecha_nacimiento: {
-        type: sequelize_1.DataTypes.DATE
+        type: sequelize_1.DataTypes.DATE,
     },
     direccion: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     email: {
         type: sequelize_1.DataTypes.STRING,
@@ -29,23 +31,26 @@ const Persona = connetion_1.default.define('Persona', {
         allowNull: false,
     },
     movil1: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     movil2: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     telefono_fijo1: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     telefono_fijo2: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
     },
     genero: {
-        type: sequelize_1.DataTypes.RANGE(sequelize_1.DataTypes.ENUM('masculino', 'femenino'))
+        type: sequelize_1.DataTypes.ENUM('masculino', 'femenino'),
     },
     estado: {
-        type: sequelize_1.DataTypes.TINYINT
-    }
+        type: sequelize_1.DataTypes.TINYINT,
+    },
+}, {
+    sequelize: connetion_1.default,
+    modelName: 'Persona',
 });
 exports.default = Persona;
 //# sourceMappingURL=persona.js.map

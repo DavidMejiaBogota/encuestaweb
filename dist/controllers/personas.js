@@ -38,7 +38,17 @@ exports.getPersona = getPersona;
 const createPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        const persona = new persona_1.default();
+        const existEmail = yield persona_1.default.findOne({
+            where: {
+                email: body.email
+            }
+        });
+        if (existEmail) {
+            return res.status(400).json({
+                msg: `Ya existe un usuario: ${body.email}`,
+            });
+        }
+        const persona = new persona_1.default(body);
         yield persona.save();
         res.json(persona);
     }
