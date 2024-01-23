@@ -24,7 +24,9 @@ const Persona = connetion_1.default.define('Persona', {
         type: sequelize_1.DataTypes.STRING
     },
     email: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.STRING,
+        unique: true,
+        allowNull: false,
     },
     movil1: {
         type: sequelize_1.DataTypes.STRING

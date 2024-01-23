@@ -1,45 +1,67 @@
-import {DataTypes} from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import db from '../db/connetion';
 
-const Persona = db.define('Persona', {
+interface PersonaAttributes {
+    id_persona: number;
+    nombre: string;
+    apellido: string;
+    fecha_nacimiento: Date;
+    direccion: string;
+    email: string;
+    movil1: string;
+    movil2: string;
+    telefono_fijo1: string;
+    telefono_fijo2: string;
+    genero: 'masculino' | 'femenino';
+    estado: number;
+}
+
+class Persona extends Model<PersonaAttributes> {}
+
+Persona.init({
     id_persona: {
         type: DataTypes.INTEGER,
-       primaryKey: true,
-       autoIncrement: true
+        primaryKey: true,
+        autoIncrement: true,
     },
     nombre: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     apellido: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     fecha_nacimiento: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
     },
     direccion: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     email: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
     },
     movil1: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
     movil2: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
     },
-    telefono_fijo1:{
-        type: DataTypes.STRING
+    telefono_fijo1: {
+        type: DataTypes.STRING,
     },
-    telefono_fijo2:{
-        type: DataTypes.STRING
+    telefono_fijo2: {
+        type: DataTypes.STRING,
     },
     genero: {
-        type: DataTypes.RANGE(DataTypes.ENUM('masculino', 'femenino'))
+        type: DataTypes.ENUM('masculino', 'femenino'),
     },
-    estado:{
-        type: DataTypes.TINYINT
-    }
+    estado: {
+        type: DataTypes.TINYINT,
+    },
+}, {
+    sequelize: db,
+    modelName: 'Persona',
 });
 
 export default Persona;

@@ -25,13 +25,28 @@ export const getPersona = async (req: Request, res: Response) => {
 };
 
 //Función para crear un usuario
-export const createPersona = async (req: Request, res: Response) => {
-    const {body} = req;
-
+export const createPersona = async(req: Request, res: Response) => {
+    
+    const { body } = req;
+    
     try {
-        const persona = new Persona();
+        
+    const  existEmail = await Persona.findOne({
+        where: {
+            email: body.email
+        }
+    });
+
+    if (existEmail) {
+       return res.status(400).json({
+        msg: `Ya existe un usuario: ${body.email}`,
+       });
+    }
+
+        const persona = new Persona(body);
         await persona.save();
         res.json(persona);
+
     } catch (error) {
         console.log(error);
         res.status(500).json({

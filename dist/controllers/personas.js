@@ -22,9 +22,16 @@ const getPersonas = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getPersonas = getPersonas;
 //Función para obtener un usuario
 const getPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_persona } = req.params;
-    const persona = yield persona_1.default.findByPk(id_persona);
-    res.json(persona);
+    const { id } = req.params;
+    const persona = yield persona_1.default.findByPk(id);
+    if (persona) {
+        res.json(persona);
+    }
+    else {
+        res.status(404).json({
+            msg: `No existe un usuario con el id: ${id}`
+        });
+    }
 });
 exports.getPersona = getPersona;
 //Función para crear un usuario
