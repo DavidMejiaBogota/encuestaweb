@@ -45,7 +45,7 @@ const createPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
         if (existEmail) {
             return res.status(400).json({
-                msg: `Ya existe un usuario: ${body.email}`,
+                msg: `Ya existe un usuario con el email: ${body.email}`,
             });
         }
         const persona = new persona_1.default(body);
@@ -55,29 +55,44 @@ const createPersona = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: 'Hable con el administrador'
+            msg: 'El campo email es necesario'
         });
     }
 });
 exports.createPersona = createPersona;
 //Función para actualizar un usuario
-const updatePersona = (req, res) => {
-    const { id_persona } = req.params;
+const updatePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
     const { body } = req;
-    res.json({
-        msg: 'updateUsuario',
-        body,
-        id_persona
-    });
-};
+    try {
+        const persona = yield persona_1.default.findByPk(id);
+        if (!persona) {
+            return res.status(404).json({
+                msg: `No existe un usuario con el id ${id}`
+            });
+        }
+        yield persona.update(body);
+        res.json({ persona });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'El campo email es necesario'
+        });
+    }
+});
 exports.updatePersona = updatePersona;
 //Función para eleminar un usuario
-const deletePersona = (req, res) => {
-    const { id_persona } = req.params;
-    res.json({
-        msg: 'deleteUsuario',
-        id_persona
-    });
-};
+const deletePersona = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const persona = yield persona_1.default.findByPk(id);
+    if (!persona) {
+        return res.status(404).json({
+            msg: `No existe un usuario con el id: ${id}`
+        });
+    }
+    yield persona.destroy();
+    res.json(persona);
+});
 exports.deletePersona = deletePersona;
 //# sourceMappingURL=personas.js.map

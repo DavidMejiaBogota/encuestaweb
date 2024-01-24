@@ -82,12 +82,18 @@ export const updatePersona = async (req: Request, res: Response) => {
 };
 
 //Función para eleminar un usuario
-export const deletePersona = (req: Request, res: Response) => {
+export const deletePersona = async (req: Request, res: Response) => {
     
-    const {id_persona } = req.params;
+    const {id} = req.params;
 
-    res.json({
-        msg: 'deleteUsuario',
-        id_persona
-    });
+    const persona = await Persona.findByPk(id);
+    if (!persona) {
+        return res.status(404).json({
+            msg: `No existe un usuario con el id: ${id}`
+        });
+    }
+
+    await persona.destroy();
+
+    res.json(persona);
 };
