@@ -93,7 +93,8 @@ export const deletePersona = async (req: Request, res: Response) => {
         });
     }
 
-    await persona.destroy();
+    await persona.update({estado: 0});
+    //await persona.destroy();
 
     res.json(persona);
 };
